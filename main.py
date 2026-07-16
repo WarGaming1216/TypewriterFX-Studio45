@@ -1,19 +1,11 @@
-from pynput import keyboard
-import pygame
+from src.sound_manager import SoundManager
+from src.keyboard_listener import KeyboardListener
 
-pygame.mixer.init()
-click = pygame.mixer.Sound("sounds/key/key.wav")
+sound_manager = SoundManager()
 
-def on_press(key):
-    try:
-        click.play()
-    except Exception as e:
-        pass
-
-listener = keyboard.Listener(on_press=on_press)
-listener.start()
+listener = KeyboardListener(sound_manager)
 
 print("TypewriterFX iniciado.")
 print("Presiona Ctrl+C para salir.")
 
-listener.join()
+listener.start()
