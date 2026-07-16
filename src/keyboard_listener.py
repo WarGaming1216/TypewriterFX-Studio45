@@ -8,9 +8,9 @@ class KeyboardListener:
 
     def on_press(self, key):
         try:
-            self.sound_manager.play_key()
+            self.sound_manager.play_click()
         except Exception as e:
-            pass
+            print(f"Error al reproducir el sonido: {e}")
 
     def start(self):
         listener = keyboard.Listener(on_press=self.on_press)
