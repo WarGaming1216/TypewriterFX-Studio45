@@ -5,8 +5,13 @@ KEY_MAPPING = {
     keyboard.Key.enter: "enter",
     keyboard.Key.backspace: "backspace",
     keyboard.Key.shift: "shift",
-    keyboard.Key.shift_l: "shift",
-    keyboard.Key.shift_r: "shift",
+    keyboard.Key.shift_r: "shift_r",
+    keyboard.Key.ctrl: "control",
+    keyboard.Key.ctrl_r: "control_r",
+    keyboard.Key.alt: "alt",
+    keyboard.Key.alt_gr: "alt_gr",  # Actualmente no funciona, revisar
+    keyboard.Key.caps_lock: "caps_lock",
+    keyboard.Key.cmd: "cmd",
 }
 
 
