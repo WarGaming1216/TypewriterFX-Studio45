@@ -1,5 +1,14 @@
 from pynput import keyboard
 
+KEY_MAPPING = {
+    keyboard.Key.space: "space",
+    keyboard.Key.enter: "enter",
+    keyboard.Key.backspace: "backspace",
+    keyboard.Key.shift: "shift",
+    keyboard.Key.shift_l: "shift",
+    keyboard.Key.shift_r: "shift",
+}
+
 
 class KeyboardListener:
 
@@ -7,10 +16,10 @@ class KeyboardListener:
         self.sound_manager = sound_manager
 
     def on_press(self, key):
-        try:
-            self.sound_manager.play_click()
-        except Exception as e:
-            print(f"Error al reproducir el sonido: {e}")
+
+        sound_type = KEY_MAPPING.get(key, "key")
+
+        self.sound_manager.play(sound_type)
 
     def start(self):
         listener = keyboard.Listener(on_press=self.on_press)

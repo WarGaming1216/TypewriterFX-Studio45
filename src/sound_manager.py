@@ -5,49 +5,29 @@ import random
 
 class SoundManager:
 
-    def __init__(self):
+    def __init__(self, theme_path):
         pygame.mixer.init()
 
-        self.key_sounds = self._load_folder("sounds/key")
-        self.space_sounds = self._load_folder("sounds/space")
-        self.enter_sounds = self._load_folder("sounds/enter")
-        self.backspace_sounds = self._load_folder("sounds/backspace")
-        self.shift_sounds = self._load_folder("sounds/shift")
+        self.theme_path = Path(theme_path)
+
+        self.sounds = {}
+
+        for folder in self.theme_path.iterdir():
+            if folder.is_dir():
+                self.sounds[folder.name] = self._load_folder(folder)
 
     def _load_folder(self, folder):
-        try:
-            return [
-                pygame.mixer.Sound(str(file)) for file in Path(folder).glob("*.wav")
-            ]
-        except Exception as e:
-            print("Ocurrió un error:", e)
+        sounds = [pygame.mixer.Sound(str(file)) for file in folder.glob("*.wav")]
 
-    def play_click(self):
-        try:
-            random.choice(self.key_sounds).play()
-        except Exception as e:
-            print(e)
+        print(f"{folder.name}: {len(sounds)} sonidos cargados")
 
-    def play_space(self):
-        try:
-            random.choice(self.space_sounds).play()
-        except Exception as e:
-            print(e)
+        return sounds
 
-    def play_enter(self):
-        try:
-            random.choice(self.enter_sounds).play()
-        except Exception as e:
-            print(e)
+    def play(self, sound_type):
+        sounds = self.sounds.get(sound_type)
 
-    def play_backspace(self):
-        try:
-            random.choice(self.backspace_sounds).play()
-        except Exception as e:
-            print(e)
+        if not sounds:
+            print(f"\tNo hay sonidos para '{sound_type}'")
+            return
 
-    def play_shift(self):
-        try:
-            random.choice(self.shift_sounds).play()
-        except Exception as e:
-            print(e)
+        random.choice(sounds).play()
